@@ -1,0 +1,79 @@
+﻿@page
+@model Fodraszat.Web.Pages.Felhasznalo.FoglalasModel
+@{
+    ViewData["Title"] = "Időpont foglalás";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (Model.Lepes == 1)
+{
+<div class="row">
+    <div class="col-md-5">
+        <h3>Válaszd ki a fodrászt és a kívánt szolgáltatást.</h3>
+        <hr />
+        
+        @if (Model.Szolgaltatasok.Count > 0 && Model.Fodraszok.Count > 0)
+        {
+            <form method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Fodrasz">Fodrász</label>
+                    <select asp-for="Fodrasz" asp-items="Model.Fodraszok" class="form-control"></select>
+                    <span asp-validation-for="Fodrasz" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Szolgaltatas">Szolgáltatás</label>
+                    <select asp-for="Szolgaltatas" asp-items="Model.Szolgaltatasok" class="form-control"></select>
+                    <span asp-validation-for="Szolgaltatas" class="text-danger"></span>
+                </div>
+                <input type="submit" value="Tovább" class="btn btn-primary" asp-page-handler="Fodrasz" />
+            </form>
+        }
+        else
+        {
+            <div class="alert alert-warning" role="alert">
+                Jelenleg nincsen elérhető szolgáltatás, vagy fodrász
+            </div>
+        }
+        
+
+    </div>
+</div>
+}else if (Model.Lepes == 2)
+{
+    <div class="row">
+        <h3>Válaszd ki az időpontot.</h3>
+        <hr/>
+        <h4>@Model.FodraszModel.Nev - @Model.SzolgaltatasModel.Nev - @Model.SzolgaltatasModel.Idotartam perc</h4>
+    </div>
+
+    if (Model.Idopontok.Count > 0)
+    {
+        <div class="row">
+
+        @foreach (var idopont in Model.Idopontok)
+        {
+            <div class="col-sm-3 mt-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@idopont</h5>
+                        <form method="post">
+                            <input type="hidden" asp-for="Szolgaltatas" class="form-control" />
+                            <input type="hidden" asp-for="Fodrasz" class="form-control" />
+                            <input type="hidden" value="@idopont" asp-for="Datum" class="form-control" />
+                            <input type="submit" value="Foglalás" asp-page-handler="Foglalas" class="btn btn-primary" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+    }else
+    {
+        <div class="alert alert-warning" role="alert">
+            Jelenleg nincsen elérhető időpont
+        </div>
+    }
+        
+}

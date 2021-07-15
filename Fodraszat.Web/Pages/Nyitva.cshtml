@@ -1,0 +1,9 @@
+﻿@page
+@model Fodraszat.Web.Pages.NyitvaModel
+@{
+    ViewData["Title"] = "Nyitvatartás";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<vc:nyitvatartas mettol="@DateTime.Now" meddig="@DateTime.Now.AddDays(21)" db="21"></vc:nyitvatartas>

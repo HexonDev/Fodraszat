@@ -1,0 +1,40 @@
+﻿@page
+@model Fodraszat.Web.Pages.Admin.Nyitvatartas.DeleteModel
+
+@{
+    ViewData["Title"] = "Törlés";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h3>Bitosan törölni szeretnéd?</h3>
+<div>
+    <h4>Nyitvatartas</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nyitvatartas.Mettol)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nyitvatartas.Mettol)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nyitvatartas.Hossz)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nyitvatartas.Hossz)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nyitvatartas.Megjegyzes)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nyitvatartas.Megjegyzes)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Nyitvatartas.Id" />
+        <input type="submit" value="Törlés" class="btn btn-danger" /> |
+        <a asp-page="./Index">Vissza</a>
+    </form>
+</div>

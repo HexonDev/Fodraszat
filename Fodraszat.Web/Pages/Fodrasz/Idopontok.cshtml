@@ -1,0 +1,38 @@
+﻿@page
+@model Fodraszat.Web.Pages.Fodrasz.IdopontokModel
+@{
+    ViewData["Title"] = "Időpontott foglalt vendégek";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Idopontok[0].Datum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Idopontok[0].FelhasznaloNev)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Idopontok[0].SzolgaltatasNev)
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Idopontok) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Datum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FelhasznaloNev)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SzolgaltatasNev)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

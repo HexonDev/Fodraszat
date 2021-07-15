@@ -1,0 +1,48 @@
+﻿@page
+@model Fodraszat.Web.Pages.Felhasznalo.IdopontokModel
+@{
+    ViewData["Title"] = "Lefoglalt időpontjaim";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@{
+    var sikeres = Model.Sikeres;
+}
+@if (sikeres != null)
+{
+<div class="alert alert-@((bool)sikeres ? "success" : "danger")" role="alert">
+    @((bool)sikeres ? "Sikeres" : "Sikertelen") időpont foglalás!
+</div>
+}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Idopontok[0].Datum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Idopontok[0].FodraszNev)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Idopontok[0].SzolgaltatasNev)
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Idopontok) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Datum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FodraszNev)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SzolgaltatasNev)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

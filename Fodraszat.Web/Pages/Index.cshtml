@@ -1,0 +1,61 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Főoldal";
+}
+
+<section id="fodraszok">
+    <h1>Fodrászaink</h1>
+    
+    @if (Model.Fodraszok.Count > 0)
+    {
+        <div id="fodrasz-carousel" class="carousel slide pb-5" data-ride="carousel" data-interval="10000">
+            <ol class="carousel-indicators mt-5">
+                @for (int i = 0; i < Model.Fodraszok.Count(); i++)
+                {
+                    <li data-target="#fodrasz-carousel" data-slide-to="@i" class="@(i == 0 ? "active" : "")"></li>
+                }
+            </ol>
+            <div class="carousel-inner">
+                @{
+                    var first = true;
+                    @foreach (var fodrasz in Model.Fodraszok)
+                    {
+                        <div class="carousel-item @(first ? "active" : "")">
+                            <div class="card">
+                                <div class="row no-gutters">
+                                    <div class="col-md-4">
+                                        <div class="card-img">
+                                            <img class="img-fluid" src="~/img/default.jpg" alt="@fodrasz.Nev arckép"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h3 class="card-title">@fodrasz.Nev</h3>
+                                            <p class="card-text">@Html.Raw(fodrasz.Nev)</p>
+                                            <a class="btn btn-primary float-right" asp-page="/Fodrasz" asp-route-Id="@fodrasz.Id" role="button">További információ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        first = false;
+                    }
+                }
+
+            </div>
+        </div>
+    }
+    else { 
+        <div class="alert alert-warning" role="alert">
+            Jelenleg nem található egy fodrász se
+        </div>
+    }
+    
+</section>
+
+<section id="nyitvatartas">
+    <h1>Nyitvatartás</h1>
+    <vc:nyitvatartas mettol="@DateTime.Now" meddig="@DateTime.Now.AddDays(14)" db="14"></vc:nyitvatartas>
+</section>

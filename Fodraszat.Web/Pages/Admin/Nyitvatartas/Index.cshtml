@@ -1,0 +1,47 @@
+﻿@page
+@model Fodraszat.Web.Pages.Admin.Nyitvatartas.IndexModel
+
+@{
+    ViewData["Title"] = "Nyitvatartás";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-page="Create">Új nyitvatartás létrehozása</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nyitvatartas[0].Mettol)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nyitvatartas[0].Hossz)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nyitvatartas[0].Megjegyzes)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Nyitvatartas) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mettol)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hossz) perc (@item.Mettol.AddMinutes(item.Hossz))
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Megjegyzes)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Szerkesztés</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Törlés</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

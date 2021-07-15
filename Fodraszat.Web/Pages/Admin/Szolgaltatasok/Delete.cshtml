@@ -1,0 +1,46 @@
+﻿@page
+@model Fodraszat.Web.Pages.Admin.Szolgaltatasok.DeleteModel
+
+@{
+    ViewData["Title"] = "Törlés";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h3>Bitosan törölni szeretnéd?</h3>
+<div>
+    <h4>Szolgáltatás</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Szolgaltatas.Nev)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Szolgaltatas.Nev)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Szolgaltatas.Ar)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Szolgaltatas.Ar)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Szolgaltatas.Idotartam)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Szolgaltatas.Idotartam)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Szolgaltatas.Megjegyzes)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Szolgaltatas.Megjegyzes)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Szolgaltatas.Id" />
+        <input type="submit" value="Törlés" class="btn btn-danger" /> |
+        <a asp-page="./Index">Vissza</a>
+    </form>
+</div>

@@ -1,0 +1,35 @@
+﻿@model Fodraszat.Web.ViewModels.NyitvatartasViewModel
+@{
+}
+
+@if (Model.Nyitvatartas.Count > 0)
+{
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Dátum</th>
+            <th>Mettől</th>
+            <th>Meddig</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var nyitvatartas in Model.Nyitvatartas)
+        {
+            <tr class="@(nyitvatartas.Mettol.Date == DateTime.Today ? "bg-success" : "")">
+                <td>@nyitvatartas.Mettol.Date.ToString("yyyy-MM-dd")</td>
+                <td>@nyitvatartas.Mettol.ToString("HH:mm")</td>
+                <td>@nyitvatartas.Mettol.AddMinutes(nyitvatartas.Hossz).ToString("HH:mm")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+}
+else
+{
+    <div class="alert alert-warning" role="alert">
+        Jelenleg nincs rögzítve nyitvatartás
+    </div>
+}

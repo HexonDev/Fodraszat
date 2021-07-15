@@ -1,0 +1,44 @@
+﻿@page
+@model Fodraszat.Web.Pages.Admin.Nyitvatartas.CreateModel
+
+@{
+    ViewData["Title"] = "Létrehozás";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>Nyitvatartás</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nyitvatartas.Mettol" class="control-label"></label>
+                <input asp-for="Nyitvatartas.Mettol" class="form-control" />
+                <span asp-validation-for="Nyitvatartas.Mettol" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nyitvatartas.Hossz" class="control-label"></label>
+                <input asp-for="Nyitvatartas.Hossz" class="form-control" />
+                <span asp-validation-for="Nyitvatartas.Hossz" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nyitvatartas.Megjegyzes" class="control-label"></label>
+                <textarea asp-for="Nyitvatartas.Megjegyzes" class="form-control"></textarea>
+                <span asp-validation-for="Nyitvatartas.Megjegyzes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Létrehozás" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Vissza</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

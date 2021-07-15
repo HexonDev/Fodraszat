@@ -1,0 +1,50 @@
+﻿@page
+@model Fodraszat.Web.Pages.Admin.Szolgaltatasok.EditModel
+
+@{
+    ViewData["Title"] = "Szerkesztés";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>Szolgáltatás</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Szolgaltatas.Nev" class="control-label"></label>
+                <input asp-for="Szolgaltatas.Nev" class="form-control" />
+                <span asp-validation-for="Szolgaltatas.Nev" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Szolgaltatas.Ar" class="control-label"></label>
+                <input asp-for="Szolgaltatas.Ar" class="form-control" />
+                <span asp-validation-for="Szolgaltatas.Ar" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Szolgaltatas.Idotartam" class="control-label"></label>
+                <input asp-for="Szolgaltatas.Idotartam" class="form-control" />
+                <span asp-validation-for="Szolgaltatas.Idotartam" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Szolgaltatas.Id" />
+            <div class="form-group">
+                <label asp-for="Szolgaltatas.Megjegyzes" class="control-label"></label>
+                <input asp-for="Szolgaltatas.Megjegyzes" class="form-control" />
+                <span asp-validation-for="Szolgaltatas.Megjegyzes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Mentés" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Vissza</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
