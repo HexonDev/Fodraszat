@@ -30,6 +30,8 @@ namespace Fodraszat.Bll
 
         [Display(Name = "Leírás")]
         public string? Leiras { get; set; }
+
+        public string? Profilkep { get; set; }
     }
 
     public class RegisztracioModel
@@ -104,6 +106,7 @@ namespace Fodraszat.Bll
         public int Id { get; set; }
         public string Nev { get; set; }
         public string? Leiras { get; set; }
+        public string? Profilkep { get; set; }
     }
 
     public class IdopontModel

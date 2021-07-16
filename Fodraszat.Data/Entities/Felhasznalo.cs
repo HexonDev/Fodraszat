@@ -11,5 +11,6 @@ namespace Fodraszat.Data.Entities
         public string Nev { get; set; }
         public DateTime SzuletesiIdo { get; set; }
         public string? Leiras { get; set; }
+        public string? Profilkep { get; set; }
     }
 }

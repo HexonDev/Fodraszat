@@ -26,7 +26,8 @@ namespace Fodraszat.Bll
             {
                 Id = f.Id,
                 Nev = f.Nev,
-                Leiras = f.Leiras
+                Leiras = f.Leiras,
+                Profilkep = f.Profilkep
             }).ToList();
         }
 
@@ -36,7 +37,8 @@ namespace Fodraszat.Bll
             {
                 Id = f.Id,
                 Nev = f.Nev,
-                Leiras = f.Leiras
+                Leiras = f.Leiras,
+                Profilkep = f.Profilkep
             }).SingleOrDefault(f => f.Id == id);
         }
     }

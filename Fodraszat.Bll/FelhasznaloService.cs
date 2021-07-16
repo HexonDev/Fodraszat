@@ -33,7 +33,8 @@ namespace Fodraszat.Bll
                 Nev = f.Nev,
                 SzuletesiIdo = f.SzuletesiIdo,
                 Telefonszam = f.PhoneNumber,
-                Leiras = f.Leiras
+                Leiras = f.Leiras,
+                Profilkep = f.Profilkep
             }).ToListAsync();
         }
 
@@ -46,7 +47,8 @@ namespace Fodraszat.Bll
                 Nev = f.Nev,
                 SzuletesiIdo = f.SzuletesiIdo,
                 Telefonszam = f.PhoneNumber,
-                Leiras = f.Leiras
+                Leiras = f.Leiras,
+                Profilkep = f.Profilkep
             }).Where(f => f.Id == id)
             .SingleOrDefaultAsync();
         }
