@@ -63,7 +63,6 @@ namespace Fodraszat.Bll
 
                                 if (idopont.AddMinutes(kivalasztottSzolgaltatas.Idotartam - 1) > ny.Meddig) // Ha a (generált időpont + kiválasztott szolgáltatás időtartama) a nyitvatartáson kívűlre nyúlik (szóval nagyobb, mint a nyitvatartási iidő), akkor...
                                     idopontok.Remove(idopont); // .. eltávolítjuk a generált időpontot a szabad időpontok listából.
-                                
                             }
                         }
                     }
@@ -127,6 +126,7 @@ namespace Fodraszat.Bll
                 FodraszNev = i.Fodrasz.Nev,
                 SzolgaltatasId = i.SzolgaltatasId,
                 SzolgaltatasNev = i.Szolgaltatas.Nev,
+                SzolgaltatasHossz = i.Szolgaltatas.Idotartam,
                 Datum = i.Datum
             }).ToListAsync();
 
@@ -138,25 +138,5 @@ namespace Fodraszat.Bll
 
             return idopontok;
         }
-
-        //public async IAsyncEnumerable<DateTime> GetSzabadIdopontokAsync(DateTime datumtol, DateTime datumig)
-        //{
-        //    var legkisebbIdotartam = (await _szolgaltatasService.GetSzolgaltatasokAsync()).Select(sz => sz.Idotartam).Min();
-
-        //    var nyitvatartas = (await _nyitvatartasService.GetNyitvatartasAsync(datumtol, datumig))
-        //        .OrderBy(ny => ny.Mettol).ToList();
-
-        //    var elsoNyitvatartas = nyitvatartas.First(); //nyitvatartas[0];
-        //    var utolsoNyitvatartas = nyitvatartas.Last(); //nyitvatartas[^1];
-
-
-        //    for (DateTime i = elsoNyitvatartas.Mettol;
-        //        i <= utolsoNyitvatartas.Meddig;
-        //        i = i.AddMinutes(legkisebbIdotartam))
-        //    {
-        //        if()
-        //        yield return i;
-        //    }
-        //}
     }
 }
