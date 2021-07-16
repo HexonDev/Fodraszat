@@ -14,7 +14,7 @@
         {
             <div class="col-sm-4">
                 <div class="card">
-                    <img src="~/img/default.jpg" class="card-img-top" alt="@fodrasz.Nev">
+                    <img src="~/@(fodrasz.Profilkep ?? "profile/default.jpg")" class="card-img-top" alt="@fodrasz.Nev">
                     <div class="card-body">
                         <h5 class="card-title">@fodrasz.Nev</h5>
                         <p class="card-text">@Html.Raw(fodrasz.Leiras)</p>

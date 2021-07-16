@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Fodraszat.Data.Entities;
+using Fodraszat.Web.Settings;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Options;
 
 namespace Fodraszat.Web.Areas.Identity.Pages.Account.Manage
 {
@@ -14,13 +19,19 @@ namespace Fodraszat.Web.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<Felhasznalo> _userManager;
         private readonly SignInManager<Felhasznalo> _signInManager;
+        private readonly IWebHostEnvironment _environment;
+        private readonly ImageUploadSettings _imageUploadSettings;
 
         public IndexModel(
             UserManager<Felhasznalo> userManager,
-            SignInManager<Felhasznalo> signInManager)
+            SignInManager<Felhasznalo> signInManager,
+            IWebHostEnvironment environment,
+            IOptions<ImageUploadSettings> imageUploadSettings)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _environment = environment;
+            _imageUploadSettings = imageUploadSettings.Value;
         }
 
         [Display(Name = "Felhasználónév")]
@@ -43,6 +54,11 @@ namespace Fodraszat.Web.Areas.Identity.Pages.Account.Manage
 
             [Display(Name = "Születési idő")]
             public DateTime SzuletesiIdo { get; set; }
+
+            [Display(Name ="Profilkép")]
+            public IFormFile Profilkep { get; set; }
+
+            public string? ProfilkepUtvonal { get; set; }
         }
 
         private async Task LoadAsync(Felhasznalo user)
@@ -51,6 +67,7 @@ namespace Fodraszat.Web.Areas.Identity.Pages.Account.Manage
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var nev = user.Nev;
             var szuletesiIdo = user.SzuletesiIdo;
+            var profilkep = user.Profilkep;
 
             Username = userName;
 
@@ -58,7 +75,8 @@ namespace Fodraszat.Web.Areas.Identity.Pages.Account.Manage
             {
                 PhoneNumber = phoneNumber,
                 Nev = nev,
-                SzuletesiIdo = szuletesiIdo
+                SzuletesiIdo = szuletesiIdo,
+                ProfilkepUtvonal = profilkep
             };
         }
 
@@ -88,8 +106,46 @@ namespace Fodraszat.Web.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
+            if (Input?.Profilkep != null && Input.Profilkep.Length > 0)
+            {
+                var fileName = Input.Profilkep.FileName;
+                var fileExt = Path.GetExtension(fileName).ToLowerInvariant();
+
+                if (string.IsNullOrEmpty(fileExt) || !_imageUploadSettings.AllowedExtensions.Contains(fileExt))     
+                {
+                    ModelState.AddModelError("Input.Profilkep", "A kép kiterjesztése nem megfelelő");
+                    await LoadAsync(user);
+                    return Page();
+                }
+
+                if (Input.Profilkep.Length > _imageUploadSettings.MaxFileSize)
+                {
+                    ModelState.AddModelError("Input.Profilkep", $"A kép mérete túl nagy ({(Input.Profilkep.Length / 1024f / 1024f):0.00} MB)! Maximális méret: {_imageUploadSettings.MaxFileSize / 1024f / 1024f} MB");
+                    await LoadAsync(user);
+                    return Page();
+                }
+
+                var filePath = $"profile/{user.Id}_{DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss")}{fileExt}";
+                var fullPath = Path.Combine(_environment.WebRootPath, filePath);
+
+                await using (var stream = System.IO.File.Create(fullPath))
+                {
+                    await Input.Profilkep.CopyToAsync(stream);
+                }
+
+                user.Profilkep = filePath;
+
+                var result = await _userManager.UpdateAsync(user);
+
+                if (!result.Succeeded)
+                {
+                    StatusMessage = "Váratlan hiba törént a kép feltöltése közben.";
+                    return RedirectToPage();
+                }
+            }
+
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber || Input.SzuletesiIdo != user.SzuletesiIdo || Input.Nev != user.Nev)
+            if (Input != null && (Input.PhoneNumber != phoneNumber || Input.SzuletesiIdo != user.SzuletesiIdo || Input.Nev != user.Nev))
             {
                 user.PhoneNumber = Input.PhoneNumber;
                 user.Nev = Input.Nev;
@@ -98,13 +154,13 @@ namespace Fodraszat.Web.Areas.Identity.Pages.Account.Manage
                 var result = await _userManager.UpdateAsync(user);
                 if (!result.Succeeded)
                 {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
+                    StatusMessage = "Váratlan hiba törént az adatok frissítése közben.";
                     return RedirectToPage();
                 }
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "Sikeresen frissítetted a profilodat!";
             return RedirectToPage();
         }
     }

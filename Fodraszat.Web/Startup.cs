@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using Fodraszat.Data.Seed;
 using Fodraszat.Bll;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace Fodraszat.Web
 {
@@ -60,7 +61,18 @@ namespace Fodraszat.Web
                 options.SlidingExpiration = true;
             });
 
+            services.Configure<FormOptions>(options =>
+            {
+                options.MultipartBodyLengthLimit = 256 * 1024 * 1024;
+            });
+
+            services.Configure<IISServerOptions>(options =>
+            {
+                options.MaxRequestBodySize = 50 * 1024 * 1024;      
+            });
+
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
+            services.Configure<ImageUploadSettings>(Configuration.GetSection("ImageUploadSettings"));
 
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped<IRoleSeedService, RoleSeedService>();

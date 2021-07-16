@@ -32,6 +32,10 @@ namespace Fodraszat.Web
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureKestrel(options =>
+                    {
+                        options.Limits.MaxRequestBodySize = 50 * 1024 * 1024;
+                    });
                     webBuilder.UseStartup<Startup>();
                 });
     }

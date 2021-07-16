@@ -21,12 +21,12 @@
                     var first = true;
                     @foreach (var fodrasz in Model.Fodraszok)
                     {
-                        <div class="carousel-item @(first ? "active" : "")">
+                        <div class="carousel-item @(first ? "active" : "")" data-bs-interval="5000">
                             <div class="card">
                                 <div class="row no-gutters">
                                     <div class="col-md-4">
                                         <div class="card-img">
-                                            <img class="img-fluid" src="~/img/default.jpg" alt="@fodrasz.Nev arckép"/>
+                                            <img class="img-fluid" src="~/@(fodrasz.Profilkep ?? "profile/default.jpg")" alt="@fodrasz.Nev arckép"/>
                                         </div>
                                     </div>
                                     <div class="col-md-8">
