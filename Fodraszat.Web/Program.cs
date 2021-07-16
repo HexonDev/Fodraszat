@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Fodraszat.Data.Seed;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Fodraszat.Web
@@ -19,6 +20,12 @@ namespace Fodraszat.Web
             var host = CreateHostBuilder(args).Build();
             using (var scope = host.Services.CreateScope())
             {
+                var dbContext = scope.ServiceProvider.GetRequiredService<Data.AppDbContext>();
+                var migrations = dbContext.Database.GetMigrations().ToHashSet();
+                if ((await dbContext.Database.GetAppliedMigrationsAsync()).Any(a => !migrations.Contains(a)))
+                    throw new InvalidOperationException("Az adatbázison már van olyan migráció futtatva, amit azóta töröltek a projektbõl. Töröld az adatbázist vagy javítsd a migrációk állapotát, majd indítsd újra az alkalmazást!");
+                await dbContext.Database.MigrateAsync();
+
                 var roleSeeder = scope.ServiceProvider.GetRequiredService<IRoleSeedService>();
                 await roleSeeder.SeedRoleAsync();
 
