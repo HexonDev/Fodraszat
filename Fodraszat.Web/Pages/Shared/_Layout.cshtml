@@ -35,20 +35,13 @@
                             </li>
                         }
 
-                        
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown" href="#" id="navbarApps" role="button" data-toggle="dropdown" aria-expanded="false">
-                                Időpontok
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarApps">
-                                <a class="dropdown-item" asp-page="/Felhasznalo/Foglalas">Foglalás</a>
-                                <a class="dropdown-item" asp-page="/Felhasznalo/Idopontok">Lefoglalt időpontjaim</a>
-                                @if (User.IsInRole("Fodrász"))
-                                {
-                                    <a class="dropdown-item" asp-page="/Fodrasz/Idopontok">Bejelentkezett vendégek</a>
-                                }
-                            </div>
-                        </li>
+
+                        @if (User.IsInRole("Fodrász"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Fodrasz/Idopontok">Vendégek</a>
+                            </li>
+                        }
 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Fodraszok">Fodrászaink</a>
@@ -57,7 +50,10 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Nyitva">Nyitvatartás</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Szolgaltatasok">Szolgáltatások</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Felhasznalo/Foglalas">Foglalás</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Felhasznalo/Idopontok">Időpontjaim</a>
                         </li>
                     </ul>
                 </div>
