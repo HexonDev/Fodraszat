@@ -9,7 +9,7 @@
     
     @if (Model.Fodraszok.Count > 0)
     {
-        <div id="fodrasz-carousel" class="carousel slide pb-5" data-ride="carousel" data-interval="10000">
+        <div id="fodrasz-carousel" class="carousel slide pb-5" data-ride="carousel">
             <ol class="carousel-indicators mt-5">
                 @for (int i = 0; i < Model.Fodraszok.Count(); i++)
                 {
@@ -31,9 +31,9 @@
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
+                                            <a class="btn btn-primary float-right" asp-page="/Fodraszok" role="button">További információ</a>
                                             <h3 class="card-title">@fodrasz.Nev</h3>
                                             <p class="card-text">@Html.Raw(fodrasz.Leiras)</p>
-                                            <a class="btn btn-primary float-right" asp-page="/Fodraszok" role="button">További információ</a>
                                         </div>
                                     </div>
                                 </div>
