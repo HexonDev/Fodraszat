@@ -125,8 +125,9 @@ namespace Fodraszat.Web.Areas.Identity.Pages.Account.Manage
                     return Page();
                 }
 
-                var filePath = $"profile/{user.Id}_{DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss")}{fileExt}";
-                var fullPath = Path.Combine(_environment.WebRootPath, filePath);
+                var filePath = $"{user.Id}_{DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss")}{fileExt}";
+                var targetDirectory = "profile";
+                var fullPath = Path.Combine(_environment.WebRootPath, targetDirectory, filePath);
 
                 await using (var stream = System.IO.File.Create(fullPath))
                 {
