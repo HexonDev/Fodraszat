@@ -1,7 +1,7 @@
 ﻿@page
 @model Fodraszat.Web.Pages.Fodrasz.IdopontokModel
 @{
-    ViewData["Title"] = "Időpontott foglalt vendégek";
+    ViewData["Title"] = "Időpontot foglalt vendégek";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -13,10 +13,13 @@
             @Html.DisplayNameFor(model => model.Idopontok[0].Datum)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Idopontok[0].FelhasznaloNev)
+            @Html.DisplayNameFor(model => model.Idopontok[0].FodraszNev)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Idopontok[0].SzolgaltatasNev)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Idopontok[0].SzolgaltatasHossz)
         </th>
     </tr>
     </thead>
@@ -27,10 +30,13 @@
                 @Html.DisplayFor(modelItem => item.Datum)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FelhasznaloNev)
+                @Html.DisplayFor(modelItem => item.FodraszNev)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SzolgaltatasNev)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SzolgaltatasHossz) perc
             </td>
         </tr>
     }

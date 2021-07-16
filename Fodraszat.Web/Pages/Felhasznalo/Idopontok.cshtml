@@ -18,17 +18,20 @@
 
 <table class="table">
     <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Idopontok[0].Datum)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Idopontok[0].FodraszNev)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Idopontok[0].SzolgaltatasNev)
-        </th>
-    </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Idopontok[0].Datum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Idopontok[0].FodraszNev)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Idopontok[0].SzolgaltatasNev)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Idopontok[0].SzolgaltatasHossz)
+            </th>
+        </tr>
     </thead>
     <tbody>
     @foreach (var item in Model.Idopontok) {
@@ -41,6 +44,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SzolgaltatasNev)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SzolgaltatasHossz) perc
             </td>
         </tr>
     }
