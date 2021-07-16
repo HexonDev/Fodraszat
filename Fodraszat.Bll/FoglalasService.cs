@@ -52,7 +52,8 @@ namespace Fodraszat.Bll
                 {
                     if (idopont > DateTime.Now) // .. ha a generált időpont nagyobb, mint a mostani dátum, akkor ...
                     {
-                        idopontok.Add(idopont); // .. belerakjuk a listába.
+                        if (idopont.AddMinutes(kivalasztottSzolgaltatas.Idotartam - 1) < ny.Meddig) // .. ha a (generált időpont + kiválasztott szolgáltatás időtartama) a nyitvatartáson belülre esik (szóval kisebb, mint a nyitvatartási idő vége), akkor...
+                            idopontok.Add(idopont); // .. belerakjuk a listába.
                         
                         if (lefoglaltIdopontok.Count > 0) // Ha van lefoglalt időpont, akkor...
                         {
@@ -61,10 +62,11 @@ namespace Fodraszat.Bll
                                 if (idopont >= lefoglaltIdopont.Datum.AddMinutes(-(kivalasztottSzolgaltatas.Idotartam - 1)) && idopont <= lefoglaltIdopont.Datum.AddMinutes(lefoglaltIdopont.SzolgaltatasHossz - 1)) // ...ha a generált időpont a (lefoglalt időpont - kiválasztott szolgáltatás időtartama) + (lefoglalt időpont + szolgáltatás hossz) közé esik, akkor...
                                     idopontok.Remove(idopont); // .. eltávolítjuk a generált időpontot a szabad időpontok listából.
 
-                                if (idopont.AddMinutes(kivalasztottSzolgaltatas.Idotartam - 1) > ny.Meddig) // Ha a (generált időpont + kiválasztott szolgáltatás időtartama) a nyitvatartáson kívűlre nyúlik (szóval nagyobb, mint a nyitvatartási iidő), akkor...
-                                    idopontok.Remove(idopont); // .. eltávolítjuk a generált időpontot a szabad időpontok listából.
+                                
                             }
                         }
+
+                            
                     }
                 }
             }
