@@ -53,7 +53,7 @@ namespace Fodraszat.Web.Pages.Felhasznalo
             if (Lepes == 1)
             {
                 Fodraszok = (await _fodraszService.GetFodraszokAsync()).Select(f => new SelectListItem(f.Nev, f.Id.ToString())).ToList();
-                Szolgaltatasok = (await _szolgaltatasService.GetSzolgaltatasokAsync()).Select(sz => new SelectListItem($"{sz.Nev} - {sz.Ar} Ft" , sz.Id.ToString())).ToList();
+                Szolgaltatasok = (await _szolgaltatasService.GetSzolgaltatasokAsync()).Select(sz => new SelectListItem($"{sz.Nev} - {sz.Ar} Ft - {sz.Idotartam} perc" , sz.Id.ToString())).ToList();
             }else if (Lepes == 2)
             {
 
