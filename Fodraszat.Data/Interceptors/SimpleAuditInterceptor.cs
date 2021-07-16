@@ -5,7 +5,7 @@ using Fodraszat.Data.Entities;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using static Microsoft.EntityFrameworkCore.EntityState;
 
-namespace Fodraszat.Data
+namespace Fodraszat.Data.Interceptors
 {
     public class SimpleAuditInterceptor : SaveChangesInterceptor
     {

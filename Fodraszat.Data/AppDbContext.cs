@@ -1,4 +1,5 @@
 ﻿using Fodraszat.Data.Entities;
+using Fodraszat.Data.Interceptors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -18,5 +19,8 @@ namespace Fodraszat.Data
         {
             base.OnModelCreating(modelBuilder);
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+            => optionsBuilder.AddInterceptors(SimpleAuditInterceptor.Instance);
     }
 }
