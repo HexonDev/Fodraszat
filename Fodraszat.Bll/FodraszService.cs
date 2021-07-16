@@ -25,7 +25,8 @@ namespace Fodraszat.Bll
             return (await _userManager.GetUsersInRoleAsync("Fodrász")).Select(f => new FodraszModel
             {
                 Id = f.Id,
-                Nev = f.Nev
+                Nev = f.Nev,
+                Leiras = f.Leiras
             }).ToList();
         }
 
@@ -34,7 +35,8 @@ namespace Fodraszat.Bll
             return (await _userManager.GetUsersInRoleAsync("Fodrász")).Select(f => new FodraszModel
             {
                 Id = f.Id,
-                Nev = f.Nev
+                Nev = f.Nev,
+                Leiras = f.Leiras
             }).SingleOrDefault(f => f.Id == id);
         }
     }

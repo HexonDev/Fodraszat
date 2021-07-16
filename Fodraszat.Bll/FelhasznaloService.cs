@@ -32,7 +32,8 @@ namespace Fodraszat.Bll
                 Email = f.Email,
                 Nev = f.Nev,
                 SzuletesiIdo = f.SzuletesiIdo,
-                Telefonszam = f.PhoneNumber
+                Telefonszam = f.PhoneNumber,
+                Leiras = f.Leiras
             }).ToListAsync();
         }
 
@@ -44,7 +45,8 @@ namespace Fodraszat.Bll
                 Email = f.Email,
                 Nev = f.Nev,
                 SzuletesiIdo = f.SzuletesiIdo,
-                Telefonszam = f.PhoneNumber
+                Telefonszam = f.PhoneNumber,
+                Leiras = f.Leiras
             }).Where(f => f.Id == id)
             .SingleOrDefaultAsync();
         }
@@ -79,6 +81,7 @@ namespace Fodraszat.Bll
             felhasznalo.Nev = model.Nev;
             felhasznalo.SzuletesiIdo = model.SzuletesiIdo;
             felhasznalo.PhoneNumber = model.Telefonszam;
+            felhasznalo.Leiras = model.Leiras;
 
             return await _userManager.UpdateAsync(felhasznalo);
         }

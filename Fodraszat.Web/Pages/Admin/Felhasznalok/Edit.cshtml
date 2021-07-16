@@ -32,6 +32,11 @@
                 <input asp-for="Felhasznalo.Telefonszam" class="form-control" />
                 <span asp-validation-for="Felhasznalo.Telefonszam" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Felhasznalo.Leiras"></label>
+                <textarea asp-for="Felhasznalo.Leiras" class="form-control"></textarea>
+                <span asp-validation-for="Felhasznalo.Leiras" class="text-danger"></span>
+            </div>
 
             <input type="hidden" asp-for="Felhasznalo.Id" class="form-control" />
             <button type="submit" class="btn btn-warning" asp-page-handler="Adatok">Szerkesztés</button>
@@ -71,6 +76,14 @@
 </div>
 
 @section Scripts {
+    <script src="~/lib/tinymce/tinymce.min.js"></script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        tinymce.init({
+            selector: '#Felhasznalo_Leiras',
+            width: '100%'
+        });
+    </script>
 }
 

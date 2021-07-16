@@ -17,8 +17,8 @@
                     <img src="~/img/default.jpg" class="card-img-top" alt="@fodrasz.Nev">
                     <div class="card-body">
                         <h5 class="card-title">@fodrasz.Nev</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a asp-page="/Felhasznalo/Foglalas" class="btn btn-primary">Időpont foglalás</a>
+                        <p class="card-text">@Html.Raw(fodrasz.Leiras)</p>
+                        <a asp-page="/Felhasznalo/Foglalas" asp-route-fodrasz="@fodrasz.Id" class="btn btn-primary">Időpont foglalás</a>
                     </div>
                 </div>
             </div>

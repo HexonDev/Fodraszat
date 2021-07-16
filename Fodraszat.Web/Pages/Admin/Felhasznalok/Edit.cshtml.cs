@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Fodraszat.Bll;
 using Fodraszat.Data.Entities;
+using Ganss.XSS;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -73,6 +74,7 @@ namespace Fodraszat.Web.Pages.Admin.Felhasznalok
                 }
             }
 
+            Felhasznalo.Leiras = new HtmlSanitizer().Sanitize(Felhasznalo.Leiras);
 
             return Page();
 
