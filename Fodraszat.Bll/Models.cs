@@ -27,6 +27,9 @@ namespace Fodraszat.Bll
         [PersonalData]
         [Display(Name = "Születési idő")]
         public DateTime SzuletesiIdo { get; set; }
+
+        [Display(Name = "Leírás")]
+        public string? Leiras { get; set; }
     }
 
     public class RegisztracioModel
@@ -100,18 +103,24 @@ namespace Fodraszat.Bll
     {
         public int Id { get; set; }
         public string Nev { get; set; }
+        public string? Leiras { get; set; }
     }
 
     public class IdopontModel
     {
         public int Id { get; set; }
         public int FelhasznaloId { get; set; }
+        [Display(Name = "Név")]
         public string FelhasznaloNev { get; set; }
         public int FodraszId { get; set; }
+        [Display(Name = "Fodrász név")]
         public string FodraszNev { get; set; }
         public int SzolgaltatasId { get; set; }
+        [Display(Name = "Szolgáltatás")]
         public string SzolgaltatasNev { get; set; }
+        [Display(Name = "Szolgáltatás időtartama")]
         public uint SzolgaltatasHossz { get; set; }
+        [Display(Name = "Dátum")]
         public DateTime Datum { get; set; }
     }
 }
