@@ -46,7 +46,7 @@ namespace Fodraszat.Web.Areas.Identity.Pages.Account.Manage
         {
             [Required]
             [EmailAddress]
-            [Display(Name = "New email")]
+            [Display(Name = "Új email")]
             public string NewEmail { get; set; }
         }
 

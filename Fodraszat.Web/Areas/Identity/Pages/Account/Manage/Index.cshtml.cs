@@ -23,6 +23,7 @@ namespace Fodraszat.Web.Areas.Identity.Pages.Account.Manage
             _signInManager = signInManager;
         }
 
+        [Display(Name = "Felhasználónév")]
         public string Username { get; set; }
 
         [TempData]
@@ -34,20 +35,30 @@ namespace Fodraszat.Web.Areas.Identity.Pages.Account.Manage
         public class InputModel
         {
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Telefonszám")]
             public string PhoneNumber { get; set; }
+
+            [Display(Name = "Név")]
+            public string Nev { get; set; }
+
+            [Display(Name = "Születési idő")]
+            public DateTime SzuletesiIdo { get; set; }
         }
 
         private async Task LoadAsync(Felhasznalo user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var nev = user.Nev;
+            var szuletesiIdo = user.SzuletesiIdo;
 
             Username = userName;
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                Nev = nev,
+                SzuletesiIdo = szuletesiIdo
             };
         }
 
@@ -78,10 +89,14 @@ namespace Fodraszat.Web.Areas.Identity.Pages.Account.Manage
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
+            if (Input.PhoneNumber != phoneNumber || Input.SzuletesiIdo != user.SzuletesiIdo || Input.Nev != user.Nev)
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
+                user.PhoneNumber = Input.PhoneNumber;
+                user.Nev = Input.Nev;
+                user.SzuletesiIdo = Input.SzuletesiIdo;
+
+                var result = await _userManager.UpdateAsync(user);
+                if (!result.Succeeded)
                 {
                     StatusMessage = "Unexpected error when trying to set phone number.";
                     return RedirectToPage();
